@@ -1,0 +1,45 @@
+&tlmm
+{
+	maxim_active: maxim_active {
+		mux {
+			pins = "gpio43";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio43";
+			bias-pull-up;
+			drive-strength = <16>;
+		};
+	};
+};
+
+&soc {
+	maxim_encryption_gauge: maxim_gauge {
+		compatible = "oplus-maxim";
+		status = "ok";
+		pinctrl-names = "maxim_active";
+		pinctrl-0 = <&maxim_active>;
+		data-gpio = <&tlmm 43 0x00>;
+		gpio-addr-set-out = <0xF12B000>;
+		gpio-addr-set-in = <0xF12B000>;
+		gpio-addr-level_high = <0xF12B004>;
+		gpio-addr-level_low = <0xF12B004>;
+		gpio-addr-data-in = <0xF12B004>;
+		gpio-addr-offset = <0x0>;
+
+		gpio-set-out-val = <0x2c3>;
+		gpio-set-in-val = <0xc3>;
+		gpio_level_high_val = <0x3>;
+		gpio_level_low_val = <0x1>;
+		cpu-id = <5>;
+
+		oplus,batt_info = /bits/ 8 <0x36 0x31 0x31 0x33 0x30 0x33 0x30 0x30 0x30 0x31 0x30 0x30
+					    0x36 0x31 0x31 0x33 0x30 0x33 0x30 0x30 0x30 0x31 0x30 0x31
+					    0x36 0x31 0x31 0x33 0x30 0x33 0x30 0x30 0x30 0x31 0x30 0x32>;
+	};
+};
+
+&battery_charger {
+        qcom,external_authenticate;
+};

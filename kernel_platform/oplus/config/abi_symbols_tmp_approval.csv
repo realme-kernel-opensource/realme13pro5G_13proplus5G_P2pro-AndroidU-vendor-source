@@ -1,0 +1,2 @@
+clk_set_duty_cycle
+__tracepoint_android_vh_binder_buffer_release
